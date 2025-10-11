@@ -1,0 +1,19 @@
+import React from 'react'
+import { HashRouter } from 'react-router-dom'
+import NavBar from './components/NavBar'
+import Footer from './components/Footer'
+import App from './App'
+
+export default function Root() {
+  return (
+    <HashRouter>
+      <div className="app-shell">
+        <NavBar />
+        <div className="app-content">
+          <App />
+        </div>
+        <Footer />
+      </div>
+    </HashRouter>
+  )
+}

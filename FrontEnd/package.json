@@ -1,0 +1,10 @@
+{
+  "name": "frontend-workspace",
+  "private": true,
+  "scripts": {
+    "install": "cd react-app && npm install",
+    "dev": "cd react-app && npm run dev",
+    "build": "cd react-app && npm run build"
+  }
+}
+
