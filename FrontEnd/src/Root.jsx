@@ -1,7 +1,7 @@
 import React from 'react'
 import { HashRouter } from 'react-router-dom'
-import NavBar from './components/NavBar'
-import Footer from './components/Footer'
+import NavBar from './components/layout/NavBar'
+import Footer from './components/layout/Footer'
 import App from './App'
 
 export default function Root() {
@@ -9,7 +9,7 @@ export default function Root() {
     <HashRouter>
       <div className="app-shell">
         <NavBar />
-        <div className="app-content">
+        <div className="app-content pt-16 md:pt-20">
           <App />
         </div>
         <Footer />
