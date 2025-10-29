@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Button } from './ui/button'
+import { LiquidButton } from './ui/liquid-button'
 import { Input } from './ui/input'
 import { Label } from './ui/label'
 import { Textarea } from './ui/textarea'
@@ -140,9 +140,9 @@ export default function ContactForm() {
           />
         </div>
 
-        <Button type="submit" className="w-full" size="lg">
+        <LiquidButton type="submit" className="w-full" size="lg">
           <i className="bi bi-send-fill mr-2" /> Enviar Mensaje
-        </Button>
+        </LiquidButton>
 
         {status && status.type === 'success' && (
           <motion.div
@@ -166,12 +166,12 @@ export default function ContactForm() {
         {showFallback && (
           <div className="mt-4">
             <p className="text-sm text-muted-foreground font-lato mb-3">Si el envío automático falla, puedes enviar el mensaje manualmente a:</p>
-            <Button 
+            <LiquidButton 
               variant="outline" 
               onClick={() => window.open(makeMailto(), '_blank')}
             >
               Enviar por correo
-            </Button>
+            </LiquidButton>
           </div>
         )}
       </form>

@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { motion } from 'framer-motion'
 import { Calendar, Clock, User, Phone, Mail } from 'lucide-react'
-import { Button } from '../components/ui/button'
+import { LiquidButton } from '../components/ui/liquid-button'
 import { Input } from '../components/ui/input'
 import { Label } from '../components/ui/label'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../components/ui/select'
@@ -169,9 +169,9 @@ export default function Reserve() {
             </div>
 
             <div className="pt-4">
-              <Button type="submit" className="w-full" size="lg">
+              <LiquidButton type="submit" className="w-full" size="lg">
                 <i className="bi bi-calendar-check mr-2" /> Confirmar Reserva
-              </Button>
+              </LiquidButton>
             </div>
           </form>
 

@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import Carousel3D from '../components/Carousel3D'
 import { Card, CardContent } from '../components/ui/card'
-import { Button } from '../components/ui/button'
+import { LiquidButton } from '../components/ui/liquid-button'
 import { motion } from 'framer-motion'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 
@@ -262,23 +262,23 @@ export default function About() {
             </CardContent>
           </Card>
           
-          <Button
+          <LiquidButton
             onClick={prevTestimonial}
             variant="outline"
             size="icon"
             className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1/2 rounded-full bg-sal-marina hover:bg-lila-rosa"
           >
             <ChevronLeft className="h-6 w-6" />
-          </Button>
+          </LiquidButton>
           
-          <Button
+          <LiquidButton
             onClick={nextTestimonial}
             variant="outline"
             size="icon"
             className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 rounded-full bg-sal-marina hover:bg-lila-rosa"
           >
             <ChevronRight className="h-6 w-6" />
-          </Button>
+          </LiquidButton>
           
           <div className="flex justify-center gap-2 mt-8">
             {testimonials.map((_, index) => (

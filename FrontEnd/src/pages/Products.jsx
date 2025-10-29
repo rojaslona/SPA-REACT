@@ -1,6 +1,6 @@
 import React from 'react'
 import { motion } from 'framer-motion'
-import { Button } from '../components/ui/button'
+import { LiquidButton } from '../components/ui/liquid-button'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '../components/ui/card'
 
 const products = [
@@ -75,9 +75,9 @@ export default function Products() {
                 <CardDescription className="font-lato">{product.description}</CardDescription>
               </CardHeader>
               <CardFooter>
-                <Button variant="default" size="sm">
+                <LiquidButton variant="default" size="sm">
                   Ver más
-                </Button>
+                </LiquidButton>
               </CardFooter>
             </Card>
           </motion.div>
@@ -98,9 +98,9 @@ export default function Products() {
         <p className="text-xl font-lora text-gris-humo/80 mb-8 max-w-2xl mx-auto">
           Agenda tu cita hoy y descubre el poder transformador de nuestros tratamientos
         </p>
-        <Button variant="secondary" size="lg">
+        <LiquidButton variant="secondary" size="lg">
           Reserva Ahora
-        </Button>
+        </LiquidButton>
       </motion.div>
     </div>
   )
