@@ -1,6 +1,7 @@
 import React from 'react'
 import { motion } from 'framer-motion'
-import { LiquidButton } from '../components/ui/liquid-button'
+import { Button } from '../components/ui/button'
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '../components/ui/card'
 
 const products = [
   {
@@ -62,20 +63,23 @@ export default function Products() {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: index * 0.1 }}
             viewport={{ once: true }}
-            className="bg-sal-marina rounded-3xl shadow-lg overflow-hidden transition-all duration-300 hover:-translate-y-2 hover:shadow-xl"
           >
-            <img
-              src={product.image}
-              alt={product.title}
-              className="w-full h-48 object-cover"
-            />
-            <div className="p-6">
-              <h5 className="text-xl font-bold mb-3 text-gris-humo">{product.title}</h5>
-              <p className="font-lato text-gris-humo/70 mb-4">{product.description}</p>
-              <LiquidButton variant="primary" size="sm">
-                Ver más
-              </LiquidButton>
-            </div>
+            <Card className="overflow-hidden transition-all duration-300 hover:-translate-y-2 hover:shadow-xl bg-sal-marina border-none">
+              <img
+                src={product.image}
+                alt={product.title}
+                className="w-full h-48 object-cover"
+              />
+              <CardHeader>
+                <CardTitle className="text-xl">{product.title}</CardTitle>
+                <CardDescription className="font-lato">{product.description}</CardDescription>
+              </CardHeader>
+              <CardFooter>
+                <Button variant="default" size="sm">
+                  Ver más
+                </Button>
+              </CardFooter>
+            </Card>
           </motion.div>
         ))}
       </div>
@@ -94,9 +98,9 @@ export default function Products() {
         <p className="text-xl font-lora text-gris-humo/80 mb-8 max-w-2xl mx-auto">
           Agenda tu cita hoy y descubre el poder transformador de nuestros tratamientos
         </p>
-        <LiquidButton variant="secondary" size="lg">
+        <Button variant="secondary" size="lg">
           Reserva Ahora
-        </LiquidButton>
+        </Button>
       </motion.div>
     </div>
   )

@@ -1,7 +1,11 @@
 import React, { useState } from 'react'
 import { motion } from 'framer-motion'
 import { Calendar, Clock, User, Phone, Mail } from 'lucide-react'
-import { LiquidButton } from '../components/ui/liquid-button'
+import { Button } from '../components/ui/button'
+import { Input } from '../components/ui/input'
+import { Label } from '../components/ui/label'
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../components/ui/select'
+import { Card } from '../components/ui/card'
 
 export default function Reserve() {
   const [formData, setFormData] = useState({
@@ -62,116 +66,112 @@ export default function Reserve() {
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="grid md:grid-cols-2 gap-6">
               {/* Name */}
-              <div>
-                <label htmlFor="name" className="flex items-center gap-2 font-lato font-medium text-gris-humo mb-2">
-                  <User className="w-5 h-5 text-turquesa-pastel" />
+              <div className="space-y-2">
+                <Label htmlFor="name" className="flex items-center gap-2">
+                  <User className="w-4 h-4 text-turquesa-pastel" />
                   Nombre Completo *
-                </label>
-                <input
+                </Label>
+                <Input
                   type="text"
                   id="name"
                   value={formData.name}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-3 rounded-xl border-2 border-white focus:border-turquesa-pastel focus:outline-none transition-colors font-lato"
                   placeholder="Tu nombre"
+                  className="font-lato"
                 />
               </div>
 
               {/* Phone */}
-              <div>
-                <label htmlFor="phone" className="flex items-center gap-2 font-lato font-medium text-gris-humo mb-2">
-                  <Phone className="w-5 h-5 text-turquesa-pastel" />
+              <div className="space-y-2">
+                <Label htmlFor="phone" className="flex items-center gap-2">
+                  <Phone className="w-4 h-4 text-turquesa-pastel" />
                   Teléfono *
-                </label>
-                <input
+                </Label>
+                <Input
                   type="tel"
                   id="phone"
                   value={formData.phone}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-3 rounded-xl border-2 border-white focus:border-turquesa-pastel focus:outline-none transition-colors font-lato"
                   placeholder="+52 55 1234 5678"
+                  className="font-lato"
                 />
               </div>
             </div>
 
             {/* Email */}
-            <div>
-              <label htmlFor="email" className="flex items-center gap-2 font-lato font-medium text-gris-humo mb-2">
-                <Mail className="w-5 h-5 text-turquesa-pastel" />
+            <div className="space-y-2">
+              <Label htmlFor="email" className="flex items-center gap-2">
+                <Mail className="w-4 h-4 text-turquesa-pastel" />
                 Correo Electrónico *
-              </label>
-              <input
+              </Label>
+              <Input
                 type="email"
                 id="email"
                 value={formData.email}
                 onChange={handleChange}
                 required
-                className="w-full px-4 py-3 rounded-xl border-2 border-white focus:border-turquesa-pastel focus:outline-none transition-colors font-lato"
                 placeholder="tu@email.com"
+                className="font-lato"
               />
             </div>
 
             {/* Service */}
-            <div>
-              <label htmlFor="service" className="block font-lato font-medium text-gris-humo mb-2">
-                Servicio Deseado *
-              </label>
-              <select
-                id="service"
-                value={formData.service}
-                onChange={handleChange}
-                required
-                className="w-full px-4 py-3 rounded-xl border-2 border-white focus:border-turquesa-pastel focus:outline-none transition-colors font-lato"
-              >
-                <option value="">Selecciona un servicio...</option>
-                {services.map((service, index) => (
-                  <option key={index} value={service}>
-                    {service}
-                  </option>
-                ))}
-              </select>
+            <div className="space-y-2">
+              <Label htmlFor="service">Servicio Deseado *</Label>
+              <Select value={formData.service} onValueChange={(value) => setFormData(prev => ({ ...prev, service: value }))} required>
+                <SelectTrigger className="font-lato">
+                  <SelectValue placeholder="Selecciona un servicio..." />
+                </SelectTrigger>
+                <SelectContent>
+                  {services.map((service, index) => (
+                    <SelectItem key={index} value={service}>
+                      {service}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
             </div>
 
             <div className="grid md:grid-cols-2 gap-6">
               {/* Date */}
-              <div>
-                <label htmlFor="date" className="flex items-center gap-2 font-lato font-medium text-gris-humo mb-2">
-                  <Calendar className="w-5 h-5 text-turquesa-pastel" />
+              <div className="space-y-2">
+                <Label htmlFor="date" className="flex items-center gap-2">
+                  <Calendar className="w-4 h-4 text-turquesa-pastel" />
                   Fecha Preferida *
-                </label>
-                <input
+                </Label>
+                <Input
                   type="date"
                   id="date"
                   value={formData.date}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-3 rounded-xl border-2 border-white focus:border-turquesa-pastel focus:outline-none transition-colors font-lato"
+                  className="font-lato"
                 />
               </div>
 
               {/* Time */}
-              <div>
-                <label htmlFor="time" className="flex items-center gap-2 font-lato font-medium text-gris-humo mb-2">
-                  <Clock className="w-5 h-5 text-turquesa-pastel" />
+              <div className="space-y-2">
+                <Label htmlFor="time" className="flex items-center gap-2">
+                  <Clock className="w-4 h-4 text-turquesa-pastel" />
                   Hora Preferida *
-                </label>
-                <input
+                </Label>
+                <Input
                   type="time"
                   id="time"
                   value={formData.time}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-3 rounded-xl border-2 border-white focus:border-turquesa-pastel focus:outline-none transition-colors font-lato"
+                  className="font-lato"
                 />
               </div>
             </div>
 
             <div className="pt-4">
-              <LiquidButton type="submit" className="w-full" size="lg">
+              <Button type="submit" className="w-full" size="lg">
                 <i className="bi bi-calendar-check mr-2" /> Confirmar Reserva
-              </LiquidButton>
+              </Button>
             </div>
           </form>
 

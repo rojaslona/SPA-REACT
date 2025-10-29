@@ -1,30 +1,39 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Carousel3D from '../components/Carousel3D'
-import { AnimatedTestimonials } from '../components/ui/animated-testimonials'
+import { Card, CardContent } from '../components/ui/card'
+import { Button } from '../components/ui/button'
 import { motion } from 'framer-motion'
+import { ChevronLeft, ChevronRight } from 'lucide-react'
 
 const testimonials = [
   {
     quote: "El mejor spa que he visitado. El trato es excepcional y siempre salgo renovada.",
     name: "María González",
     title: "Cliente desde 2018",
-    image: null
   },
   {
     quote: "Los masajes son increíbles y el ambiente es muy relajante. ¡Totalmente recomendado!",
     name: "Ana Martínez",
     title: "Cliente frecuente",
-    image: null
   },
   {
     quote: "Profesionales expertos y tratamientos de primera calidad. Me siento en buenas manos.",
     name: "Laura Sánchez",
     title: "Cliente desde 2020",
-    image: null
   }
 ]
 
 export default function About() {
+  const [currentTestimonial, setCurrentTestimonial] = useState(0)
+
+  const nextTestimonial = () => {
+    setCurrentTestimonial((prev) => (prev + 1) % testimonials.length)
+  }
+
+  const prevTestimonial = () => {
+    setCurrentTestimonial((prev) => (prev - 1 + testimonials.length) % testimonials.length)
+  }
+
   return (
     <div className="py-12">
       {/* Hero Section */}
@@ -228,7 +237,63 @@ export default function About() {
         >
           Lo Que Dicen Nuestros Clientes
         </motion.h2>
-        <AnimatedTestimonials testimonials={testimonials} autoplay={true} />
+        <div className="max-w-4xl mx-auto relative">
+          <Card className="bg-sal-marina border-none shadow-xl">
+            <CardContent className="p-8 md:p-12">
+              <motion.div
+                key={currentTestimonial}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.5 }}
+              >
+                <p className="text-2xl font-lora italic text-gris-humo mb-6 text-center">
+                  "{testimonials[currentTestimonial].quote}"
+                </p>
+                <div className="text-center">
+                  <p className="font-cormorant font-bold text-xl text-gris-humo">
+                    {testimonials[currentTestimonial].name}
+                  </p>
+                  <p className="font-lato text-sm text-gris-humo/70">
+                    {testimonials[currentTestimonial].title}
+                  </p>
+                </div>
+              </motion.div>
+            </CardContent>
+          </Card>
+          
+          <Button
+            onClick={prevTestimonial}
+            variant="outline"
+            size="icon"
+            className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1/2 rounded-full bg-sal-marina hover:bg-lila-rosa"
+          >
+            <ChevronLeft className="h-6 w-6" />
+          </Button>
+          
+          <Button
+            onClick={nextTestimonial}
+            variant="outline"
+            size="icon"
+            className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 rounded-full bg-sal-marina hover:bg-lila-rosa"
+          >
+            <ChevronRight className="h-6 w-6" />
+          </Button>
+          
+          <div className="flex justify-center gap-2 mt-8">
+            {testimonials.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => setCurrentTestimonial(index)}
+                className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${
+                  index === currentTestimonial
+                    ? 'bg-lila-rosa w-8'
+                    : 'bg-turquesa-pastel/30'
+                }`}
+              />
+            ))}
+          </div>
+        </div>
       </section>
 
       {/* Certifications */}

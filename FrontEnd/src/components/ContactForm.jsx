@@ -1,5 +1,9 @@
 import React, { useState } from 'react'
-import { LiquidButton } from './ui/liquid-button'
+import { Button } from './ui/button'
+import { Input } from './ui/input'
+import { Label } from './ui/label'
+import { Textarea } from './ui/textarea'
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select'
 import { motion } from 'framer-motion'
 
 export default function ContactForm() {
@@ -16,6 +20,10 @@ export default function ContactForm() {
   const handleChange = (e) => {
     const { id, value } = e.target
     setFormData(prev => ({ ...prev, [id]: value }))
+  }
+  
+  const handleSelectChange = (value) => {
+    setFormData(prev => ({ ...prev, subject: value }))
   }
 
   const validateForm = () => {
@@ -69,74 +77,72 @@ export default function ContactForm() {
   return (
     <div>
       <form id="contactForm" onSubmit={handleSubmit} noValidate className="space-y-4">
-        <div>
-          <label htmlFor="name" className="block font-lato font-medium text-gris-humo mb-2">Nombre Completo *</label>
-          <input 
-            type="text" 
-            className="w-full px-4 py-3 rounded-xl border-2 border-sal-marina focus:border-turquesa-pastel focus:outline-none transition-colors font-lato" 
-            id="name" 
-            value={formData.name} 
-            onChange={handleChange} 
-            required 
-          />
-        </div>
-
-        <div>
-          <label htmlFor="email" className="block font-lato font-medium text-gris-humo mb-2">Correo Electrónico *</label>
-          <input 
-            type="email" 
-            className="w-full px-4 py-3 rounded-xl border-2 border-sal-marina focus:border-turquesa-pastel focus:outline-none transition-colors font-lato" 
-            id="email" 
-            value={formData.email} 
-            onChange={handleChange} 
-            required 
-          />
-        </div>
-
-        <div>
-          <label htmlFor="phone" className="block font-lato font-medium text-gris-humo mb-2">Teléfono (Opcional)</label>
-          <input 
-            type="tel" 
-            className="w-full px-4 py-3 rounded-xl border-2 border-sal-marina focus:border-turquesa-pastel focus:outline-none transition-colors font-lato" 
-            id="phone" 
-            value={formData.phone} 
-            onChange={handleChange} 
-          />
-        </div>
-
-        <div>
-          <label htmlFor="subject" className="block font-lato font-medium text-gris-humo mb-2">Asunto *</label>
-          <select 
-            className="w-full px-4 py-3 rounded-xl border-2 border-sal-marina focus:border-turquesa-pastel focus:outline-none transition-colors font-lato" 
-            id="subject" 
-            value={formData.subject} 
-            onChange={handleChange} 
+        <div className="space-y-2">
+          <Label htmlFor="name">Nombre Completo *</Label>
+          <Input
+            type="text"
+            id="name"
+            value={formData.name}
+            onChange={handleChange}
             required
-          >
-            <option value="">Seleccionar asunto...</option>
-            <option value="info">Información General</option>
-            <option value="reserva">Reservación</option>
-            <option value="productos">Consulta sobre Productos</option>
-            <option value="queja">Queja o Sugerencia</option>
-            <option value="otro">Otro</option>
-          </select>
-        </div>
-
-        <div>
-          <label htmlFor="message" className="block font-lato font-medium text-gris-humo mb-2">Mensaje *</label>
-          <textarea 
-            className="w-full px-4 py-3 rounded-xl border-2 border-sal-marina focus:border-turquesa-pastel focus:outline-none transition-colors font-lato resize-none" 
-            id="message" 
-            rows="4" 
-            value={formData.message} 
-            onChange={handleChange} 
-            required 
+            className="font-lato"
           />
         </div>
 
-        <LiquidButton type="submit" className="w-full" size="lg">
+        <div className="space-y-2">
+          <Label htmlFor="email">Correo Electrónico *</Label>
+          <Input
+            type="email"
+            id="email"
+            value={formData.email}
+            onChange={handleChange}
+            required
+            className="font-lato"
+          />
+        </div>
+
+        <div className="space-y-2">
+          <Label htmlFor="phone">Teléfono (Opcional)</Label>
+          <Input
+            type="tel"
+            id="phone"
+            value={formData.phone}
+            onChange={handleChange}
+            className="font-lato"
+          />
+        </div>
+
+        <div className="space-y-2">
+          <Label htmlFor="subject">Asunto *</Label>
+          <Select value={formData.subject} onValueChange={handleSelectChange} required>
+            <SelectTrigger className="font-lato">
+              <SelectValue placeholder="Seleccionar asunto..." />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="info">Información General</SelectItem>
+              <SelectItem value="reserva">Reservación</SelectItem>
+              <SelectItem value="productos">Consulta sobre Productos</SelectItem>
+              <SelectItem value="queja">Queja o Sugerencia</SelectItem>
+              <SelectItem value="otro">Otro</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
+
+        <div className="space-y-2">
+          <Label htmlFor="message">Mensaje *</Label>
+          <Textarea
+            id="message"
+            rows={4}
+            value={formData.message}
+            onChange={handleChange}
+            required
+            className="font-lato"
+          />
+        </div>
+
+        <Button type="submit" className="w-full" size="lg">
           <i className="bi bi-send-fill mr-2" /> Enviar Mensaje
-        </LiquidButton>
+        </Button>
 
         {status && status.type === 'success' && (
           <motion.div
@@ -159,13 +165,13 @@ export default function ContactForm() {
 
         {showFallback && (
           <div className="mt-4">
-            <p className="text-sm text-gris-humo/70 font-lato mb-3">Si el envío automático falla, puedes enviar el mensaje manualmente a:</p>
-            <LiquidButton 
+            <p className="text-sm text-muted-foreground font-lato mb-3">Si el envío automático falla, puedes enviar el mensaje manualmente a:</p>
+            <Button 
               variant="outline" 
               onClick={() => window.open(makeMailto(), '_blank')}
             >
               Enviar por correo
-            </LiquidButton>
+            </Button>
           </div>
         )}
       </form>

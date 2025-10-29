@@ -8,20 +8,69 @@
 
 @layer base {
   :root {
+    /* Custom brand colors */
     --arena-suave: #F5EDE4;
     --sal-marina: #D7ECEB;
     --turquesa-pastel: #6EBFC3;
     --lila-rosa: #EBD2EC;
     --rosa-petalo: #F9D6E2;
     --gris-humo: #4A4A4A;
+    
+    /* shadcn/ui CSS variables */
+    --background: 31 23 18; /* Converted from arena-suave #F5EDE4 */
+    --foreground: 0 0 29%; /* gris-humo #4A4A4A */
+    --card: 192 93% 92%; /* sal-marina #D7ECEB */
+    --card-foreground: 0 0 29%;
+    --popover: 31 23 18%;
+    --popover-foreground: 0 0 29%;
+    --primary: 176 53% 59%; /* turquesa-pastel #6EBFC3 */
+    --primary-foreground: 0 0 29%;
+    --secondary: 288 50% 86%; /* lila-rosa #EBD2EC */
+    --secondary-foreground: 0 0 29%;
+    --muted: 192 93% 92%;
+    --muted-foreground: 0 0 45%;
+    --accent: 339 90% 91%; /* rosa-petalo #F9D6E2 */
+    --accent-foreground: 0 0 29%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0 98%;
+    --border: 0 0 85%;
+    --input: 0 0 85%;
+    --ring: 176 53% 59%;
+    --radius: 1rem;
+  }
+  
+  .dark {
+    --background: 0 0 12%;
+    --foreground: 0 0 98%;
+    --card: 0 0 12%;
+    --card-foreground: 0 0 98%;
+    --popover: 0 0 12%;
+    --popover-foreground: 0 0 98%;
+    --primary: 176 53% 59%;
+    --primary-foreground: 0 0 12%;
+    --secondary: 288 50% 30%;
+    --secondary-foreground: 0 0 98%;
+    --muted: 0 0 20%;
+    --muted-foreground: 0 0 60%;
+    --accent: 339 40% 30%;
+    --accent-foreground: 0 0 98%;
+    --destructive: 0 62% 30%;
+    --destructive-foreground: 0 0 98%;
+    --border: 0 0 20%;
+    --input: 0 0 20%;
+    --ring: 176 53% 59%;
   }
 
+  * {
+    @apply border-border;
+  }
+  
   html {
     scroll-behavior: smooth;
   }
 
   body {
-    @apply font-cormorant bg-arena-suave text-gris-humo;
+    @apply font-cormorant bg-background text-foreground;
     line-height: 1.6;
     margin: 0;
     padding: 0;
