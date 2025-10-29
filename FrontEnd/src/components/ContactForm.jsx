@@ -53,7 +53,7 @@ export default function ContactForm() {
         setStatus({ type: 'error', message: 'Ocurrió un error al enviar el mensaje.' })
         setShowFallback(true)
       }
-    } catch (err) {
+    } catch {
       setStatus({ type: 'error', message: 'Error de conexión. Inténtalo de nuevo.' })
       setShowFallback(true)
     }
