@@ -1,0 +1,281 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Fonts are provided in public/fonts and loaded at runtime via the browser.
+   @font-face rules were removed from source to avoid IDE static resolution errors.
+   Re-enable @font-face here if your build process requires local bundling. */
+
+@layer base {
+  :root {
+    /* Custom brand colors */
+    --arena-suave: #F5EDE4;
+    --sal-marina: #D7ECEB;
+    --turquesa-pastel: #6EBFC3;
+    --lila-rosa: #EBD2EC;
+    --rosa-petalo: #F9D6E2;
+    --gris-humo: #4A4A4A;
+    
+    /* shadcn/ui CSS variables */
+    --background: 31 23 18; /* Converted from arena-suave #F5EDE4 */
+    --foreground: 0 0 29%; /* gris-humo #4A4A4A */
+    --card: 192 93% 92%; /* sal-marina #D7ECEB */
+    --card-foreground: 0 0 29%;
+    --popover: 31 23 18%;
+    --popover-foreground: 0 0 29%;
+    --primary: 176 53% 59%; /* turquesa-pastel #6EBFC3 */
+    --primary-foreground: 0 0 29%;
+    --secondary: 288 50% 86%; /* lila-rosa #EBD2EC */
+    --secondary-foreground: 0 0 29%;
+    --muted: 192 93% 92%;
+    --muted-foreground: 0 0 45%;
+    --accent: 339 90% 91%; /* rosa-petalo #F9D6E2 */
+    --accent-foreground: 0 0 29%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0 98%;
+    --border: 0 0 85%;
+    --input: 0 0 85%;
+    --ring: 176 53% 59%;
+    --radius: 1rem;
+  }
+  
+  .dark {
+    --background: 0 0 12%;
+    --foreground: 0 0 98%;
+    --card: 0 0 12%;
+    --card-foreground: 0 0 98%;
+    --popover: 0 0 12%;
+    --popover-foreground: 0 0 98%;
+    --primary: 176 53% 59%;
+    --primary-foreground: 0 0 12%;
+    --secondary: 288 50% 30%;
+    --secondary-foreground: 0 0 98%;
+    --muted: 0 0 20%;
+    --muted-foreground: 0 0 60%;
+    --accent: 339 40% 30%;
+    --accent-foreground: 0 0 98%;
+    --destructive: 0 62% 30%;
+    --destructive-foreground: 0 0 98%;
+    --border: 0 0 20%;
+    --input: 0 0 20%;
+    --ring: 176 53% 59%;
+  }
+
+  * {
+    @apply border-border;
+  }
+  
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply font-cormorant bg-background text-foreground;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    /* subtle radial gradient using existing palette */
+    background-image:
+      radial-gradient(1200px 600px at 80% -10%, rgba(110,191,195,0.08), transparent),
+      radial-gradient(900px 450px at -10% 20%, rgba(235,210,236,0.08), transparent);
+    background-attachment: fixed;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-cormorant text-gris-humo font-bold;
+    letter-spacing: 0.02em;
+    line-height: 1.2;
+    text-shadow: 0 1px 2px rgba(245,237,228,0.15);
+  }
+
+  h1 { @apply text-5xl; }
+  h2 { @apply text-4xl; }
+  h3 { @apply text-3xl; }
+}
+
+@layer components {
+  /* App shell: full-height flex column so footer stays at bottom naturally */
+  .app-shell {
+    @apply min-h-screen flex flex-col;
+  }
+
+  .app-content {
+    @apply flex-1;
+    animation: fadeSlideIn 380ms ease-out 30ms both;
+  }
+
+  @keyframes fadeSlideIn {
+    from {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Card styles with liquid effect */
+  .card-liquid {
+    @apply bg-sal-marina rounded-3xl shadow-lg p-6 mb-8 transition-all duration-300 ease-in-out;
+  }
+
+  .card-liquid:hover {
+    @apply -translate-y-1 shadow-xl;
+  }
+
+  /* Button styles */
+  .btn-primary-liquid {
+    @apply bg-turquesa-pastel text-gris-humo font-lato font-semibold border-none rounded-2xl px-8 py-3 text-base cursor-pointer transition-all duration-300 ease-in-out shadow-md;
+  }
+
+  .btn-primary-liquid:hover {
+    @apply bg-lila-rosa -translate-y-0.5 shadow-lg;
+  }
+
+  /* Carousel 3D styles - keep existing functionality */
+  .carousel-3d-container {
+    @apply relative w-full max-w-screen-xl mx-auto;
+    height: 700px;
+    perspective: 1500px;
+    overflow: hidden;
+    padding: 60px 0;
+    margin-bottom: 3rem;
+  }
+
+  .carousel-3d {
+    @apply relative w-full h-full;
+    transform-style: preserve-3d;
+  }
+
+  .carousel-card {
+    @apply absolute left-1/2 top-1/2;
+    transform-origin: center center;
+    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    width: 320px;
+    will-change: transform, opacity;
+  }
+
+  .carousel-card.active {
+    transform: translate(-50%, -50%) translateX(0) translateZ(0) rotateY(0deg) scale(1);
+    opacity: 1;
+    z-index: 10;
+    filter: blur(0px);
+  }
+
+  .carousel-card.next {
+    transform: translate(-50%, -50%) translateX(420px) translateZ(-320px) rotateY(-35deg) scale(0.82);
+    opacity: 0.65;
+    z-index: 5;
+    filter: blur(2px);
+  }
+
+  .carousel-card.prev {
+    transform: translate(-50%, -50%) translateX(-420px) translateZ(-320px) rotateY(35deg) scale(0.82);
+    opacity: 0.65;
+    z-index: 5;
+    filter: blur(2px);
+  }
+
+  .carousel-card.hidden-right {
+    transform: translate(-50%, -50%) translateX(850px) translateZ(-550px) rotateY(-45deg) scale(0.65);
+    opacity: 0;
+    z-index: 1;
+    filter: blur(5px);
+    pointer-events: none;
+  }
+
+  .carousel-card.hidden-left {
+    transform: translate(-50%, -50%) translateX(-850px) translateZ(-550px) rotateY(45deg) scale(0.65);
+    opacity: 0;
+    z-index: 1;
+    filter: blur(5px);
+    pointer-events: none;
+  }
+
+  .carousel-controls {
+    @apply absolute w-full top-1/2 -translate-y-1/2 flex justify-between px-8 z-20;
+    pointer-events: none;
+  }
+
+  .carousel-btn {
+    @apply bg-sal-marina border-2 border-turquesa-pastel w-14 h-14 rounded-full flex items-center justify-center cursor-pointer transition-all duration-300 shadow-lg;
+    pointer-events: all;
+  }
+
+  .carousel-btn:hover {
+    @apply bg-lila-rosa border-rosa-petalo scale-110;
+    box-shadow: 0 6px 25px rgba(235, 210, 236, 0.4);
+  }
+
+  .carousel-btn:active {
+    @apply scale-95;
+  }
+}
+
+@layer utilities {
+  .text-shadow-soft {
+    text-shadow: 0 1px 2px rgba(245,237,228,0.15);
+  }
+
+  .backdrop-blur-custom {
+    backdrop-filter: saturate(160%) blur(8px);
+    -webkit-backdrop-filter: saturate(160%) blur(8px);
+  }
+}
+
+/* Mobile responsive adjustments */
+@media (max-width: 768px) {
+  .carousel-3d-container {
+    height: 550px;
+    padding: 40px 0;
+  }
+
+  .carousel-card {
+    width: 280px;
+  }
+
+  .carousel-card.next {
+    transform: translate(-50%, -50%) translateX(340px) translateZ(-280px) rotateY(-28deg) scale(0.75);
+  }
+
+  .carousel-card.prev {
+    transform: translate(-50%, -50%) translateX(-340px) translateZ(-280px) rotateY(28deg) scale(0.75);
+  }
+
+  .carousel-btn {
+    @apply w-11 h-11;
+  }
+
+  .carousel-controls {
+    @apply px-4;
+  }
+
+  h1 { @apply text-4xl; }
+  h2 { @apply text-2xl; }
+  h3 { @apply text-xl; }
+}
+
+@media (max-width: 480px) {
+  .carousel-3d-container {
+    height: 500px;
+  }
+
+  .carousel-card {
+    width: 260px;
+  }
+
+  .carousel-card.next,
+  .carousel-card.prev {
+    opacity: 0.4;
+    filter: blur(3px);
+  }
+
+  .carousel-card.next {
+    transform: translate(-50%, -50%) translateX(300px) translateZ(-250px) rotateY(-25deg) scale(0.7);
+  }
+
+  .carousel-card.prev {
+    transform: translate(-50%, -50%) translateX(-300px) translateZ(-250px) rotateY(25deg) scale(0.7);
+  }
+}
